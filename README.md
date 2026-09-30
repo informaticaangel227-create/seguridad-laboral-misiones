@@ -18,4 +18,4 @@ Este proyecto analiza la evolución de la siniestralidad laboral en las principa
 ## Principales Conclusiones
 - La forestoindustria y la construcción concentran el mayor índice de accidentes graves y días de incapacidad.
 - Los atrapamientos en maquinaria y las caídas en altura representan las causas principales de incapacidad prolongada.
-- La implementación de sistemas de gestión de seguridad (ISO 45001) y la inversión en prevención reducen significativamente el costo de las alícuotas de las ART para las empresas.
+- La implementación de sistemas de gestión de seguridad (ISO 45001) y la inversión en prevención reducen significativamente el costo de las alícuotas de las ART para las empresas .

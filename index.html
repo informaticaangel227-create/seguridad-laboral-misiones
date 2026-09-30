@@ -1,21 +1,350 @@
-# Análisis de Siniestralidad e Higiene Laboral en la Provincia de Misiones (2021-2025)
+<!DOCTYPE html>
+<html lang="es">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Análisis de Siniestralidad e Higiene Laboral en Misiones (2021-2025)</title>
+<meta name="description" content="Análisis de siniestralidad industrial en Misiones y su relación con las primas de las ART.">
+<style>
+:root{--ink:#14211b;--muted:#4b5b53;--bg:#f4f7f5;--card:#fff;--green:#1f4d3a;--green2:#2f7a5a;--yellow:#f2b705;--line:#d3ddd7;--blue:#2b5d8a;--red:#b23a48}
+*{box-sizing:border-box}
+html{scroll-behavior:smooth}
+body{margin:0;font-family:system-ui,-apple-system,"Segoe UI",Roboto,Arial,sans-serif;color:var(--ink);background:var(--bg);line-height:1.6;font-size:1rem}
+a{color:inherit}
+:focus-visible{outline:3px solid var(--yellow);outline-offset:2px}
+.skip{position:absolute;left:-999px;top:0;background:var(--yellow);color:var(--ink);padding:.6rem 1rem;z-index:10}
+.skip:focus{left:0}
+header.site{background:var(--green);color:#fff;border-bottom:6px solid var(--yellow)}
+.wrap{max-width:1100px;margin:0 auto;padding:0 1.25rem}
+.top{display:flex;flex-wrap:wrap;align-items:center;justify-content:space-between;gap:.75rem 1.5rem;padding:1rem 0}
+.brand{display:flex;align-items:center;gap:.75rem;font-weight:700;line-height:1.2}
+.brand svg{flex:none}
+.brand small{display:block;font-weight:400;opacity:.85;font-size:.8rem}
+nav ul{list-style:none;display:flex;flex-wrap:wrap;gap:.25rem;margin:0;padding:0}
+nav a{display:block;padding:.5rem .8rem;border-radius:6px;text-decoration:none;color:#fff;font-size:.95rem}
+nav a:hover{background:rgba(255,255,255,.15)}
+.hero{padding:2.5rem 0 3rem}
+.hero h1{font-size:clamp(1.9rem,5vw,3.1rem);line-height:1.1;margin:0 0 1rem;max-width:20ch;letter-spacing:-.02em}
+.hero p{max-width:60ch;margin:0 0 1.5rem;font-size:1.1rem;opacity:.95}
+.kpis{display:grid;grid-template-columns:repeat(auto-fit,minmax(200px,1fr));gap:1rem;margin:0;padding:0;list-style:none}
+.kpis li{background:rgba(255,255,255,.1);border-left:4px solid var(--yellow);padding:.8rem 1rem;border-radius:0 8px 8px 0}
+.kpis b{display:block;font-size:1.8rem;line-height:1.1}
+.kpis span{font-size:.9rem;opacity:.9}
+section{padding:3rem 0}
+section+section{border-top:1px solid var(--line)}
+h2{font-size:clamp(1.5rem,3.5vw,2rem);margin:0 0 .5rem;letter-spacing:-.01em}
+h3{margin:0 0 .4rem;font-size:1.15rem}
+.lead{color:var(--muted);max-width:68ch;margin:0 0 1.5rem}
+.controls{display:flex;flex-wrap:wrap;gap:.75rem 1.5rem;align-items:center;margin-bottom:1rem}
+label{font-weight:600}
+select,.seg button{font:inherit;padding:.5rem .75rem;border:1px solid var(--green);border-radius:6px;background:#fff;color:var(--ink);min-height:44px}
+.seg{display:inline-flex}
+.seg button{border-radius:0;cursor:pointer;margin-left:-1px}
+.seg button:first-child{border-radius:6px 0 0 6px;margin:0}
+.seg button:last-child{border-radius:0 6px 6px 0}
+.seg button[aria-pressed="true"]{background:var(--green);color:#fff}
+.card{background:var(--card);border:1px solid var(--line);border-radius:10px;padding:1.25rem}
+.tablewrap{overflow-x:auto;background:var(--card);border:1px solid var(--line);border-radius:10px;margin-bottom:1.5rem}
+table{border-collapse:collapse;width:100%;min-width:560px}
+caption{text-align:left;padding:.9rem 1rem;font-weight:700}
+th,td{padding:.7rem 1rem;text-align:right;border-top:1px solid var(--line)}
+th:first-child,td:first-child{text-align:left}
+thead th{background:#e6eee9;border-top:0}
+th button{all:unset;cursor:pointer;font-weight:700;display:inline-flex;gap:.3rem;padding:.2rem .3rem;border-radius:4px}
+th button:focus-visible{outline:3px solid var(--green2)}
+tfoot td{font-weight:700;background:#f0f5f2}
+.down{color:#1d7a4d;font-weight:600}.up{color:var(--red);font-weight:600}
+.grid2{display:grid;grid-template-columns:repeat(auto-fit,minmax(min(100%,460px),1fr));gap:1.5rem}
+.chartbox{position:relative;height:340px}
+.note{font-size:.88rem;color:var(--muted);margin-top:.75rem}
+.grid3{display:grid;grid-template-columns:repeat(auto-fit,minmax(min(100%,300px),1fr));gap:1rem}
+.factor{border-top:5px solid var(--yellow)}
+.factor p{margin:.3rem 0 0;color:var(--muted)}
+.fit{margin-top:.6rem;font-size:.92rem;background:#eef4f0;padding:.6rem .8rem;border-radius:6px}
+ul.rec{list-style:none;padding:0;margin:0;display:grid;gap:.75rem}
+ul.rec li{display:flex;gap:.9rem;align-items:flex-start;background:#fff;border:1px solid var(--line);border-radius:10px;padding:1rem}
+ul.rec svg{flex:none;margin-top:.15rem}
+ul.rec b{display:block}
+ul.rec span{color:var(--muted);font-size:.95rem}
+footer{background:var(--ink);color:#d9e3dd;padding:2rem 0;font-size:.9rem}
+footer p{margin:.3rem 0;max-width:75ch}
+@media (max-width:600px){.top{padding:.75rem 0}.chartbox{height:300px}th,td{padding:.6rem .7rem}}
+@media (prefers-reduced-motion:reduce){html{scroll-behavior:auto}}
+</style>
+</head>
+<body>
+<a class="skip" href="#contenido">Saltar al contenido</a>
 
-## Descripción del Proyecto
-Este proyecto analiza la evolución de la siniestralidad laboral en las principales industrias de la provincia de Misiones (forestoindustria, agroindustria, construcción y comercio) durante el periodo 2021-2025. Se examinan los tipos de accidentes más frecuentes y el impacto que tienen estos índices en la modificación de las primas y alícuotas de las Aseguradoras de Riesgos del Trabajo (A.R.T.).
+<header class="site">
+  <div class="wrap">
+    <div class="top">
+      <div class="brand">
+        <svg width="40" height="40" viewBox="0 0 40 40" aria-hidden="true"><path d="M20 3 6 8v10c0 9 6 16 14 19 8-3 14-10 14-19V8z" fill="#f2b705"/><path d="M13 20l5 5 9-10" fill="none" stroke="#1f4d3a" stroke-width="3.5" stroke-linecap="round" stroke-linejoin="round"/></svg>
+        <div>Observatorio de Seguridad e Higiene Laboral<small>Provincia de Misiones, Argentina</small></div>
+      </div>
+      <nav aria-label="Principal">
+        <ul>
+          <li><a href="#datos">Datos por sector</a></li>
+          <li><a href="#graficos">Gráficos</a></li>
+          <li><a href="#primas">Primas de ART</a></li>
+          <li><a href="#prevencion">Prevención</a></li>
+        </ul>
+      </nav>
+    </div>
+    <div class="hero" id="inicio">
+      <h1>Análisis de Siniestralidad e Higiene Laboral en Misiones (2021-2025)</h1>
+      <p>Análisis de los accidentes laborales registrados entre 2021 y 2025 en forestoindustria, yerba mate y agroindustria, construcción, y comercio y servicios, y su relación con las primas que pagan las empresas a las ART.</p>
+      <ul class="kpis" aria-label="Indicadores principales">
+        <li><b>-17,7%</b><span>accidentes entre 2021 y 2025 (1.160 a 955)</span></li>
+        <li><b>-20%</b><span>días de incapacidad (15.000 a 12.000)</span></li>
+        <li><b>61,5%</b><span>de los accidentes se concentra en forestoindustria y construcción</span></li>
+      </ul>
+    </div>
+  </div>
+</header>
 
-## Estructura de Insumos (Guardados en Google Drive)
-- **Accidentes_Misiones_Sectores.xlsx:** Datos estadísticos de siniestralidad por sector industrial y días de incapacidad laboral acumulados.
-- **Tipos_Accidentes_Frecuencia.xlsx:** Clasificación de accidentes por tipo (atrapamientos, caídas, golpes, sobreesfuerzos) y nivel de severidad.
-- **Modificacion_Primas_Seguro.docx:** Informe analítico sobre las normativas de recargos en las primas de ART y propuestas de prevención técnica.
+<main id="contenido">
+<section id="datos">
+  <div class="wrap">
+    <h2>Accidentes por sector y por tipo de riesgo</h2>
+    <p class="lead">Elegí un año o el acumulado 2021-2025. Podés ordenar cada tabla con los botones de los encabezados.</p>
+    <div class="controls">
+      <label for="anio">Período</label>
+      <select id="anio">
+        <option value="todos">Acumulado 2021-2025</option>
+        <option>2021</option><option>2022</option><option>2023</option><option>2024</option><option>2025</option>
+      </select>
+    </div>
+    <div class="tablewrap">
+      <table id="tSector">
+        <caption id="capSector">Accidentes por sector industrial</caption>
+        <thead><tr>
+          <th scope="col"><button data-k="name">Sector <span aria-hidden="true"></span></button></th>
+          <th scope="col"><button data-k="n">Accidentes <span aria-hidden="true"></span></button></th>
+          <th scope="col"><button data-k="d">Días de incapacidad <span aria-hidden="true"></span></button></th>
+          <th scope="col"><button data-k="r">Días por accidente <span aria-hidden="true"></span></button></th>
+          <th scope="col"><button data-k="v">Variación 2021-2025 <span aria-hidden="true"></span></button></th>
+        </tr></thead>
+        <tbody></tbody><tfoot></tfoot>
+      </table>
+    </div>
+    <div class="tablewrap">
+      <table id="tTipo">
+        <caption id="capTipo">Accidentes por tipo de riesgo</caption>
+        <thead><tr>
+          <th scope="col"><button data-k="name">Tipo de accidente <span aria-hidden="true"></span></button></th>
+          <th scope="col"><button data-k="n">Casos <span aria-hidden="true"></span></button></th>
+          <th scope="col"><button data-k="p">Participación <span aria-hidden="true"></span></button></th>
+          <th scope="col"><button data-k="s">Severidad estimada <span aria-hidden="true"></span></button></th>
+          <th scope="col"><button data-k="v">Variación 2021-2025 <span aria-hidden="true"></span></button></th>
+        </tr></thead>
+        <tbody></tbody>
+      </table>
+    </div>
+    <div class="controls">
+      <label for="sectorSel">Detalle anual por sector</label>
+      <select id="sectorSel"></select>
+    </div>
+    <div class="tablewrap">
+      <table id="tDetalle">
+        <caption id="capDetalle">Detalle anual</caption>
+        <thead><tr><th scope="col">Año</th><th scope="col">Accidentes</th><th scope="col">Días perdidos</th><th scope="col">Días por accidente</th><th scope="col">Cambio anual en accidentes</th></tr></thead>
+        <tbody></tbody>
+      </table>
+    </div>
+    <p class="note">La variación compara 2025 con 2021 y no depende del período elegido. Las cifras son absolutas: sin cantidad de trabajadores no se pueden calcular tasas de incidencia.</p>
+  </div>
+</section>
 
-## Herramientas Utilizadas
-- **Perplexity AI:** Búsqueda e investigación de datos estadísticos y marco normativo.
-- **NotebookLM (Cuaderno Gemini):** Organización y síntesis de fuentes de información.
-- **Gemini / Claude:** Procesamiento de datos y generación del código del sitio web.
-- **GitHub:** Repositorio y control de versiones del proyecto.
-- **Netlify:** Despliegue y publicación del sitio web en vivo.
+<section id="graficos">
+  <div class="wrap">
+    <h2>Accidentes y días perdidos por sector</h2>
+    <p class="lead">Todos los sectores bajaron desde el pico de 2022. Toca los nombres de la leyenda para ocultar o mostrar un sector.</p>
+    <div class="grid2">
+      <div class="card">
+        <h3>Accidentes registrados por sector</h3>
+        <div class="chartbox"><canvas id="cSector" role="img" aria-label="Gráfico de líneas con los accidentes anuales por sector. Los mismos datos figuran en las tablas."></canvas></div>
+      </div>
+      <div class="card">
+        <h3>Días de incapacidad por sector</h3>
+        <div class="chartbox"><canvas id="cDias" role="img" aria-label="Gráfico de barras con los días de incapacidad anuales por sector. Los mismos datos figuran en las tablas."></canvas></div>
+      </div>
+    </div>
+    <div class="card" style="margin-top:1.5rem">
+      <h3>Casos por tipo de riesgo</h3>
+      <div class="controls">
+        <div class="seg" role="group" aria-label="Forma del gráfico por tipo de riesgo">
+          <button type="button" data-t="stack" aria-pressed="true">Apilado</button>
+          <button type="button" data-t="group" aria-pressed="false">Agrupado</button>
+        </div>
+      </div>
+      <div class="chartbox"><canvas id="cTipo" role="img" aria-label="Gráfico de barras con los casos anuales por tipo de riesgo. Los mismos datos figuran en las tablas."></canvas></div>
+    </div>
+  </div>
+</section>
 
-## Principales Conclusiones
-- La forestoindustria y la construcción concentran el mayor índice de accidentes graves y días de incapacidad.
-- Los atrapamientos en maquinaria y las caídas en altura representan las causas principales de incapacidad prolongada.
-- La implementación de sistemas de gestión de seguridad (ISO 45001) y la inversión en prevención reducen significativamente el costo de las alícuotas de las ART para las empresas .
+<section id="primas">
+  <div class="wrap">
+    <h2>Por qué cambian las primas de las ART</h2>
+    <p class="lead">La alícuota que paga cada empresa tiene un componente fijo y uno variable sobre la masa salarial. Según la normativa descripta en el documento de análisis, puede aumentar por tres motivos.</p>
+    <div class="grid3">
+      <article class="card factor">
+        <h3>Nivel de siniestralidad</h3>
+        <p>Las empresas con frecuencia y severidad superiores al promedio de su rama reciben recargos porcentuales en la prima anual.</p>
+        <p class="fit">Mayor exposición: forestoindustria y construcción, con 13,8 y 14,2 días perdidos por accidente.</p>
+      </article>
+      <article class="card factor">
+        <h3>Incumplimiento de planes de mejoramiento</h3>
+        <p>Las empresas de alta siniestralidad que no aplican las medidas correctivas pedidas por la ART o la SRT sufren penalizaciones y subas de alícuota.</p>
+        <p class="fit">Sectores donde la gravedad por caso casi no bajó: forestoindustria (13,8 días) y construcción (14,0).</p>
+      </article>
+      <article class="card factor">
+        <h3>Costo de días perdidos</h3>
+        <p>Los días de baja generan un costo actuarial que la aseguradora traslada a la tarifa de la empresa.</p>
+        <p class="fit">Se acumularon 81.350 días en cinco años. Bajaron de 15.000 a 12.000 por año.</p>
+      </article>
+    </div>
+    <p class="note">Esta sección es cualitativa: los datos disponibles no incluyen montos de primas ni costos en pesos. La prima de cada empresa depende de su propio historial, no del promedio provincial. Conviene verificar los criterios vigentes con la SRT y con cada ART.</p>
+  </div>
+</section>
+
+<section id="prevencion">
+  <div class="wrap">
+    <h2>Recomendaciones de prevención</h2>
+    <p class="lead">Cada medida apunta a un riesgo de los datos y, al reducir frecuencia y días perdidos, mejora la posición de la empresa frente a su ART.</p>
+    <article class="card factor" style="margin-bottom:1rem">
+      <h3>Qué es la norma ISO 45001</h3>
+      <p>Es el estándar internacional para gestionar la seguridad y la salud en el trabajo. Funciona como un ciclo de mejora continua: planificar, hacer, verificar y actuar.</p>
+      <p>Exige compromiso de la dirección, identificación de peligros y evaluación de riesgos, participación de los trabajadores, control de los riesgos, investigación de incidentes y auditorías periódicas. Esos registros documentan el cumplimiento de los planes de mejoramiento y respaldan la negociación de la prima con la ART.</p>
+    </article>
+    <ul class="rec">
+      <li><svg width="28" height="28" viewBox="0 0 28 28" aria-hidden="true"><circle cx="14" cy="14" r="13" fill="#1f4d3a"/><path d="M8 14.5l4 4 8-9" fill="none" stroke="#f2b705" stroke-width="3" stroke-linecap="round" stroke-linejoin="round"/></svg>
+        <div><b>Sensores y protecciones en maquinaria de corte</b><span>Forestoindustria. Atrapamiento y corte es el riesgo más frecuente: 38,6% de los casos, con severidad alta.</span></div></li>
+      <li><svg width="28" height="28" viewBox="0 0 28 28" aria-hidden="true"><circle cx="14" cy="14" r="13" fill="#1f4d3a"/><path d="M8 14.5l4 4 8-9" fill="none" stroke="#f2b705" stroke-width="3" stroke-linecap="round" stroke-linejoin="round"/></svg>
+        <div><b>Capacitación continua en caídas y uso de EPP</b><span>Construcción e industria. Las caídas de altura o desnivel son el 27,2% de los casos, con severidad alta.</span></div></li>
+      <li><svg width="28" height="28" viewBox="0 0 28 28" aria-hidden="true"><circle cx="14" cy="14" r="13" fill="#1f4d3a"/><path d="M8 14.5l4 4 8-9" fill="none" stroke="#f2b705" stroke-width="3" stroke-linecap="round" stroke-linejoin="round"/></svg>
+        <div><b>Evaluaciones ergonómicas en manipulación de cargas</b><span>Yerba mate y empaque. Es el único riesgo que subió (+3,8% entre 2021 y 2025).</span></div></li>
+      <li><svg width="28" height="28" viewBox="0 0 28 28" aria-hidden="true"><circle cx="14" cy="14" r="13" fill="#1f4d3a"/><path d="M8 14.5l4 4 8-9" fill="none" stroke="#f2b705" stroke-width="3" stroke-linecap="round" stroke-linejoin="round"/></svg>
+        <div><b>Sistema de gestión de seguridad y salud bajo ISO 45001</b><span>Todos los sectores. Sostiene las mejoras en el tiempo y documenta el cumplimiento de los planes de mejoramiento.</span></div></li>
+    </ul>
+  </div>
+</section>
+</main>
+
+<footer>
+  <div class="wrap">
+    <p><strong>Observatorio de Seguridad e Higiene Laboral, Misiones</strong></p>
+    <p>Fuente: registros de accidentes laborales de Misiones 2021-2025 (sectores y tipos de accidente) y documento de análisis de modificación de primas de ART.</p>
+    <p>Este sitio tiene fines informativos y no reemplaza el asesoramiento profesional ni la normativa vigente de la SRT.</p>
+  </div>
+</footer>
+
+<script src="https://cdnjs.cloudflare.com/ajax/libs/Chart.js/4.4.1/chart.umd.min.js"></script>
+<script>
+const YEARS=[2021,2022,2023,2024,2025];
+const SEC={
+ "Forestoindustria":{n:[420,440,390,365,340],d:[5800,6100,5400,5000,4700]},
+ "Yerba Mate y Agroindustria":{n:[310,295,280,260,245],d:[3900,3700,3400,3100,2900]},
+ "Construcción":{n:[280,310,290,265,250],d:[4100,4500,4000,3700,3500]},
+ "Comercio y Servicios":{n:[150,165,140,130,120],d:[1200,1350,1100,1000,900]}
+};
+const TIPO={
+ "Atrapamiento y corte en maquinaria":{n:[450,480,420,390,360],s:"Alta"},
+ "Caídas de altura o desnivel":{n:[320,340,300,270,250],s:"Alta"},
+ "Golpes por objetos / proyecciones":{n:[260,250,230,220,210],s:"Media"},
+ "Sobreesfuerzo y trastornos ergonómicos":{n:[130,140,150,140,135],s:"Baja"}
+};
+const fmt=new Intl.NumberFormat("es-AR");
+const f1=new Intl.NumberFormat("es-AR",{minimumFractionDigits:1,maximumFractionDigits:1});
+const sum=a=>a.reduce((x,y)=>x+y,0);
+const sel=document.getElementById("anio");
+const state={sector:{k:"n",dir:-1},tipo:{k:"n",dir:-1}};
+const sevOrder={Alta:3,Media:2,Baja:1};
+
+function pick(arr){return sel.value==="todos"?sum(arr):arr[YEARS.indexOf(+sel.value)]}
+function varCell(a){const v=(a[4]/a[0]-1)*100;return {v,html:`<span class="${v<=0?"down":"up"}">${v>0?"+":""}${f1.format(v)}%</span>`}}
+function label(){return sel.value==="todos"?"acumulado 2021-2025":"año "+sel.value}
+
+function renderSector(){
+  const rows=Object.entries(SEC).map(([name,o])=>{const n=pick(o.n),d=pick(o.d);return{name,n,d,r:d/n,v:(o.n[4]/o.n[0]-1)*100,o}});
+  const {k,dir}=state.sector;
+  rows.sort((a,b)=>k==="name"?dir*a.name.localeCompare(b.name,"es"):dir*(a[k]-b[k]));
+  const tb=document.querySelector("#tSector tbody");
+  tb.innerHTML=rows.map(r=>`<tr><th scope="row" style="font-weight:600">${r.name}</th><td>${fmt.format(r.n)}</td><td>${fmt.format(r.d)}</td><td>${f1.format(r.r)}</td><td>${varCell(r.o.n).html}</td></tr>`).join("");
+  const N=sum(rows.map(r=>r.n)),D=sum(rows.map(r=>r.d));
+  document.querySelector("#tSector tfoot").innerHTML=`<tr><td>Total</td><td>${fmt.format(N)}</td><td>${fmt.format(D)}</td><td>${f1.format(D/N)}</td><td></td></tr>`;
+  document.getElementById("capSector").textContent="Accidentes por sector industrial, "+label();
+}
+function renderTipo(){
+  const tot=sum(Object.values(TIPO).map(o=>pick(o.n)));
+  const rows=Object.entries(TIPO).map(([name,o])=>{const n=pick(o.n);return{name,n,p:n/tot*100,s:o.s,v:(o.n[4]/o.n[0]-1)*100,o}});
+  const {k,dir}=state.tipo;
+  rows.sort((a,b)=>k==="name"?dir*a.name.localeCompare(b.name,"es"):k==="s"?dir*(sevOrder[a.s]-sevOrder[b.s]):dir*(a[k]-b[k]));
+  document.querySelector("#tTipo tbody").innerHTML=rows.map(r=>`<tr><th scope="row" style="font-weight:600">${r.name}</th><td>${fmt.format(r.n)}</td><td>${f1.format(r.p)}%</td><td>${r.s}</td><td>${varCell(r.o.n).html}</td></tr>`).join("");
+  document.getElementById("capTipo").textContent="Accidentes por tipo de riesgo, "+label();
+}
+const ss=document.getElementById("sectorSel");
+ss.innerHTML='<option value="todos">Todos los sectores</option>'+Object.keys(SEC).map(n=>`<option>${n}</option>`).join("");
+function renderDetalle(){
+  const names=ss.value==="todos"?Object.keys(SEC):[ss.value];
+  const n=YEARS.map((_,i)=>sum(names.map(k=>SEC[k].n[i]))),d=YEARS.map((_,i)=>sum(names.map(k=>SEC[k].d[i])));
+  document.querySelector("#tDetalle tbody").innerHTML=YEARS.map((y,i)=>{
+    const c=i?(n[i]/n[i-1]-1)*100:null;
+    const cc=c===null?"-":`<span class="${c<=0?"down":"up"}">${c>0?"+":""}${f1.format(c)}%</span>`;
+    return `<tr><th scope="row" style="font-weight:600">${y}</th><td>${fmt.format(n[i])}</td><td>${fmt.format(d[i])}</td><td>${f1.format(d[i]/n[i])}</td><td>${cc}</td></tr>`}).join("");
+  document.getElementById("capDetalle").textContent="Detalle anual: "+(ss.value==="todos"?"todos los sectores":ss.value);
+}
+ss.addEventListener("change",renderDetalle);
+function render(){renderSector();renderTipo();renderDetalle()}
+sel.addEventListener("change",render);
+
+document.querySelectorAll("table thead button").forEach(b=>{
+  b.addEventListener("click",()=>{
+    const key=b.closest("table").id==="tSector"?"sector":"tipo";
+    const st=state[key],k=b.dataset.k;
+    st.dir=st.k===k?-st.dir:(k==="name"?1:-1);st.k=k;
+    b.closest("thead").querySelectorAll("th").forEach(th=>{th.removeAttribute("aria-sort");th.querySelector("span").textContent=""});
+    const th=b.closest("th");
+    th.setAttribute("aria-sort",st.dir===1?"ascending":"descending");
+    b.querySelector("span").textContent=st.dir===1?"▲":"▼";
+    render();
+  });
+});
+render();
+
+/* Gráficos */
+const COL=["#1f4d3a","#2b5d8a","#d98e04","#b23a48"];
+const DASH=[[],[6,4],[2,3],[10,3,2,3]];
+const STYLE=["circle","rect","triangle","rectRot"];
+Chart.defaults.font.family='system-ui,-apple-system,"Segoe UI",Roboto,Arial,sans-serif';
+Chart.defaults.font.size=13;
+Chart.defaults.color="#14211b";
+const base={responsive:true,maintainAspectRatio:false,interaction:{mode:"index",intersect:false},
+  plugins:{legend:{position:"bottom",labels:{usePointStyle:true,boxWidth:10}},
+  tooltip:{callbacks:{label:c=>` ${c.dataset.label}: ${fmt.format(c.parsed.y)}`}}}};
+
+const lineOpts=(t)=>({...base,scales:{y:{beginAtZero:true,title:{display:true,text:t},ticks:{callback:v=>fmt.format(v)}}}});
+new Chart(document.getElementById("cSector"),{
+  type:"line",
+  data:{labels:YEARS,datasets:Object.entries(SEC).map(([name,o],i)=>({label:name,data:o.n,borderColor:COL[i],backgroundColor:COL[i],borderWidth:3,borderDash:DASH[i],pointStyle:STYLE[i],pointRadius:5,pointHoverRadius:7,tension:.25}))},
+  options:lineOpts("Accidentes")
+});
+new Chart(document.getElementById("cDias"),{
+  type:"bar",
+  data:{labels:YEARS,datasets:Object.entries(SEC).map(([name,o],i)=>({label:name,data:o.d,backgroundColor:COL[i],borderColor:"#fff",borderWidth:1}))},
+  options:lineOpts("Días de incapacidad")
+});
+
+const barChart=new Chart(document.getElementById("cTipo"),{
+  type:"bar",
+  data:{labels:YEARS,datasets:Object.entries(TIPO).map(([name,o],i)=>({label:name,data:o.n,backgroundColor:COL[i],borderColor:"#fff",borderWidth:1}))},
+  options:{...base,scales:{x:{stacked:true},y:{stacked:true,beginAtZero:true,title:{display:true,text:"Casos"},ticks:{callback:v=>fmt.format(v)}}}}
+});
+document.querySelectorAll("[data-t]").forEach(b=>b.addEventListener("click",()=>{
+  const st=b.dataset.t==="stack";
+  document.querySelectorAll("[data-t]").forEach(x=>x.setAttribute("aria-pressed",x===b));
+  barChart.options.scales.x.stacked=st;barChart.options.scales.y.stacked=st;barChart.update();
+}));
+</script>
+</body>
+</html>
